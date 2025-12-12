@@ -13,15 +13,11 @@ export default function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const username = e.target.username.value;
     const email = e.target.email.value;
     const phone = e.target.phone.value;
     const dob = e.target.dob.value;
     const today = new Date().toISOString().split("T")[0];
 
-    if (!username) {
-      alert("please enter username")
-    }
     if (!/^\S+@\S+\.\S+$/.test(email)) {
       alert("Invalid email");
       return;
@@ -41,7 +37,7 @@ export default function App() {
   };
 
   return (
-    <div id="root" onClick={closeModal} style={{ height: "100vh", textAlign: "center" }}>
+    <div id="root" style={{ height: "100vh", textAlign: "center" }}>
       <Box>
         <Typography sx={{ fontSize: "40px", fontWeight: "bold", mt: 3 }}>
           User Details Modal
@@ -50,20 +46,17 @@ export default function App() {
         <Button
           variant="contained"
           sx={{ marginTop: 2, paddingY: 1, width: "200px" }}
-          onClick={(e) => {
-            e.stopPropagation();
-            openModal();
-          }}
+          onClick={openModal}
         >
           Open Form
         </Button>
       </Box>
 
-      {isOpen && (
-        <div onClick={closeModal}>
-          <CustomModal isOpen={isOpen} onClose={closeModal} onSubmit={handleSubmit} />
-        </div>
-      )}
+      <CustomModal
+        isOpen={isOpen}
+        onClose={closeModal}
+        onSubmit={handleSubmit}
+      />
     </div>
   );
 }
