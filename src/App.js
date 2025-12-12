@@ -19,6 +19,9 @@ export default function App() {
     const dob = e.target.dob.value;
     const today = new Date().toISOString().split("T")[0];
 
+    if (!username) {
+      alert("please enter username")
+    }
     if (!/^\S+@\S+\.\S+$/.test(email)) {
       alert("Invalid email");
       return;
@@ -34,26 +37,17 @@ export default function App() {
       return;
     }
 
-    console.log("Form submitted!");
     closeModal();
   };
 
   return (
-    <div
-      id="root"
-      data-cy="root"
-      style={{ height: "100vh", textAlign: "center" }}
-      onClick={() => {
-        if (isOpen) closeModal();
-      }}
-    >
+    <div id="root" onClick={closeModal} style={{ height: "100vh", textAlign: "center" }}>
       <Box>
         <Typography sx={{ fontSize: "40px", fontWeight: "bold", mt: 3 }}>
           User Details Modal
         </Typography>
 
         <Button
-          data-cy="open-modal-btn"
           variant="contained"
           sx={{ marginTop: 2, paddingY: 1, width: "200px" }}
           onClick={(e) => {
@@ -65,12 +59,11 @@ export default function App() {
         </Button>
       </Box>
 
-      {/* Modal always mounted for Cypress stability */}
-      <CustomModal
-        isOpen={isOpen}
-        onClose={closeModal}
-        onSubmit={handleSubmit}
-      />
+      {isOpen && (
+        <div onClick={closeModal}>
+          <CustomModal isOpen={isOpen} onClose={closeModal} onSubmit={handleSubmit} />
+        </div>
+      )}
     </div>
   );
 }
