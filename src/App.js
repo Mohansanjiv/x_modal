@@ -13,6 +13,7 @@ export default function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const username = e.target.username.value;
     const email = e.target.email.value;
     const phone = e.target.phone.value;
     const dob = e.target.dob.value;
@@ -38,32 +39,38 @@ export default function App() {
   };
 
   return (
-    <div id="root" style={{ height: "100vh", textAlign: "center" }}>
-
+    <div
+      id="root"
+      data-cy="root"
+      style={{ height: "100vh", textAlign: "center" }}
+      onClick={() => {
+        if (isOpen) closeModal();
+      }}
+    >
       <Box>
-        <Typography sx={{ fontSize: "50px", fontWeight: "semibold" }}>User Details Modal</Typography>
+        <Typography sx={{ fontSize: "40px", fontWeight: "bold", mt: 3 }}>
+          User Details Modal
+        </Typography>
+
         <Button
-          type="submit"
+          data-cy="open-modal-btn"
           variant="contained"
-          fullWidth
-          className="submit-button"
-          sx={{
-            marginTop: 2,
-            paddingY: 1,
-            width: "200px"
+          sx={{ marginTop: 2, paddingY: 1, width: "200px" }}
+          onClick={(e) => {
+            e.stopPropagation();
+            openModal();
           }}
-          onClick={openModal}>Open Form</Button>
+        >
+          Open Form
+        </Button>
       </Box>
 
-      {isOpen && (
-        <div className="modal">
-          <CustomModal
-            isOpen={isOpen}
-            onClose={closeModal}
-            onSubmit={handleSubmit}
-          />
-        </div>
-      )}
+      {/* Modal always mounted for Cypress stability */}
+      <CustomModal
+        isOpen={isOpen}
+        onClose={closeModal}
+        onSubmit={handleSubmit}
+      />
     </div>
   );
 }
