@@ -15,6 +15,7 @@ export default function CustomModal({ isOpen, onClose, onSubmit }) {
             }}
         >
             <Box
+                className="modal-content"  
                 sx={{
                     bgcolor: "white",
                     padding: 4,
@@ -24,7 +25,12 @@ export default function CustomModal({ isOpen, onClose, onSubmit }) {
                 }}
                 onClick={(e) => e.stopPropagation()}
             >
-                <Typography id="modal-title" variant="h6" mb={2} sx={{ textAlign: "center", fontWeight: "bold" }}>
+                <Typography
+                    id="modal-title"
+                    variant="h6"
+                    mb={2}
+                    sx={{ textAlign: "center", fontWeight: "bold" }}
+                >
                     Fill Details
                 </Typography>
 
@@ -45,7 +51,6 @@ export default function CustomModal({ isOpen, onClose, onSubmit }) {
                         fullWidth
                         margin="normal"
                         required
-
                     />
 
                     <TextField
